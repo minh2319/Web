@@ -1,102 +1,41 @@
-<div class="col-12 col-sm-6 col-md-12 col-xl-8">
-                <p><a href="#" style="font-size: 25px; text-decoration: none; color: #2BB74F">Bảng Xếp Hạng</a></p>
+ <?php $obj = new Db();//tu dong load file classes/Db.class.php
+  $tonghop = new Tonghop(); 
+$rows=$tonghop->bxh();
+  ?>
+
+
+<div class="col-12 col-sm-6 col-md-12 col-xl-8" style="background: #292929" >
+                <p><a href="#" style="font-size: 25px; text-decoration: none; color:white">Bảng Xếp Hạng</a></p>
                 <div class="table-responsive">
                     <table class="table">
                         <tr>
                             <td colspan="3">
                                 <h2>Việt Nam</h2></td>
                         </tr>
+
+
+<?php $i=1;
+    foreach($rows as $row)
+    {
+       
+ ?>
                         <tr>
                             <td>
-                                <h3>01</h3></td>
-                            <td class="tenbhbxh"><a href="" style="color :#525FDF;">Sống Xa Anh Chẳng Dễ Dàng</a>
+                                <h3><?php  echo $i; ?></h3></td>
+                            <td class="tenbhbxh"><a href="baihat.php?mabh=<?php echo $row['ma_chi_tiet_bh'];?>" style="color :white;"><?php echo $row["ten_bai_hat"];?></a>
                                 <a href="">
-                                    <p class="tencasi">Bảo Anh</p>
+                                    <div class="tencasi"><?php echo $row["ten_ca_sy"];?></div>
                                 </a>
+                        
+                               <div style="color: #8A3030">Lượt Nghe: </div><?php echo $row["luot_nghe"];?>
                             </td>
                         </tr>
-                        <tr>
-                            <td>
-                                <h3>02</h3></td>
-                            <td class="tenbhbxh"><a href="" style="color :#525FDF;">Em Gái Mưa</a>
-                                <a href="">
-                                    <p class="tencasi">Hương Tràm</p>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <h3>03</h3></td>
-                            <td class="tenbhbxh"><a href="" style="color :#525FDF;">Yêu Từ Phía Xa</a>
-                                <a href="">
-                                    <p class="tencasi">Chi Dân</p>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <h3>04</h3></td>
-                            <td class="tenbhbxh"><a href="" style="color :#525FDF;">Mặt Trời Của Em</a>
-                                <a href="">
-                                    <p class="tencasi">Phương Ly, JustaTee</p>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <h3>05</h3></td>
-                            <td class="tenbhbxh"><a href="" style="color :#525FDF;">Em Ngày Xưa Khác Rồi</a>
-                                <a href="">
-                                    <p class="tencasi">Hiền Hồ</p>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <h3>06</h3></td>
-                            <td class="tenbhbxh"><a href="" style="color :#525FDF;">Yêu Em Rất Nhiều</a>
-                                <a href="">
-                                    <p class="tencasi">Hoàng Tôn</p>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <h3>07</h3></td>
-                            <td class="tenbhbxh"><a href="" style="color :#525FDF;">Sống Xa Anh Chẳng Dễ Dàng</a>
-                                <a href="">
-                                    <p class="tencasi">Bảo Anh</p>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <h3>08</h3></td>
-                            <td class="tenbhbxh"><a href="" style="color :#525FDF;">Yêu Từ Phía Xa</a>
-                                <a href="">
-                                    <p class="tencasi">Bảo Anh</p>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <h3>09</h3></td>
-                            <td class="tenbhbxh"><a href="" style="color :#525FDF;">Chạm Khẽ Tim Anh Một Chút Thôi</a>
-                                <a href="">
-                                    <p class="tencasi">
-                                        Noo Phước Thịnh</p>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <h3>10</h3></td>
-                            <td class="tenbhbxh"><a href="" style="color :#525FDF;">Phía Sau Một Cô Gái</a>
-                                <a href="">
-                                    <p class="tencasi">Soobin Hoàng Sơn</p>
-                                </a>
-                            </td>
-                        </tr>
+                       
+                       <?php 
+                       $i++;
+                       
+}
+                       ?>
                     </table>
                 </div>
             </div>
