@@ -12,36 +12,36 @@ $id=0;
   {
     $id=$_SESSION['tv_id'];
   }
-if(isset($_GET['mabh']) && isset($_GET['id']) && !isset($_GET['bl_cha']))
+if(isset($_GET['matintuc']) && isset($_GET['id']) && !isset($_GET['bl_cha']))
 {
-  //echo $_POST['noidung'].$_POST['username'].$_POST['mabh'];
-  $mabh=$_GET['mabh'];
+  //echo $_POST['noidung'].$_POST['username'].$_POST['matintuc'];
+  $matintuc=$_GET['matintuc'];
   $id=$_GET['id'];
     $noidung=$_POST['noidung'];
-$arr = array(":noi_dung"=>$noidung,":ma_chi_tiet_bh"=>$mabh,":thanh_vien_id"=>$id);
-  $binhluan->them_bl_bh($arr);
+$arr = array(":noi_dung"=>$noidung,":ma_tin_tuc"=>$matintuc,":thanh_vien_id"=>$id);
+  $binhluan->them_bl_tt($arr);
 }
 
-if(isset($_GET['mabh']) && isset($_GET['id'])&& isset($_GET['bl_cha']) )
+if(isset($_GET['matintuc']) && isset($_GET['id'])&& isset($_GET['bl_cha']) )
 {
-  $mabh=$_GET['mabh'];
+  $matintuc=$_GET['matintuc'];
   $id=$_GET['id'];
   $bl_cha=$_GET['bl_cha']; 
    $noidung=$_POST['noidung'];
- $arr = array(":noi_dung"=>$noidung,":ma_chi_tiet_bh"=>$mabh,":thanh_vien_id"=>$id,":binh_luan_cha"=>$bl_cha);
-  $binhluan->them_tl_bh($arr);
+ $arr = array(":noi_dung"=>$noidung,":ma_tin_tuc"=>$matintuc,":thanh_vien_id"=>$id,":binh_luan_cha"=>$bl_cha);
+  $binhluan->them_tl_tt($arr);
 }
-if(isset($_GET['mabh']) && isset($_GET['sotrang']) )
+if(isset($_GET['matintuc']) && isset($_GET['sotrang']) )
 {
-  //echo $_POST['noidung'].$_POST['username'].$_POST['mabh'];
-  $mabh=$_GET['mabh'];
+  //echo $_POST['noidung'].$_POST['username'].$_POST['matintuc'];
+  $matintuc=$_GET['matintuc'];
   $page=$_GET['sotrang'];
  $sl=15;
-  $arrayName = array(':ma_chi_tiet_bh' => $_GET['mabh']);
+  $arrayName = array(':ma_tin_tuc' => $_GET['matintuc']);
       $a=($page-1)*15;
-  $rows = $binhluan->binh_luan_bh($arrayName,$a,$sl);
-$arrayxemthem = array(':ma_chi_tiet_bh' => $_GET['mabh']);
-  $duoc_tralois = $binhluan->binh_luan_duoc_tra_loi($arrayName);
+  $rows = $binhluan->binh_luan_tt($arrayName,$a,$sl);
+$arrayxemthem = array(':ma_tin_tuc' => $_GET['matintuc']);
+  $duoc_tralois = $binhluan->binh_luan_tt_duoc_tra_loi($arrayName);
  $i=1; 
     ?>
     <div class="row col-12">
@@ -100,8 +100,8 @@ if(isset($_SESSION['username']))
           <div class="col-md-10 "> 
          <form method="POST">
              <textarea name="binhluan" id="<?php echo "noidung_tl$i" ?>" cols="60" rows="2" ></textarea>
-              <div class="col-md-2 offset-10">   
-                <input  class="btn-group" onclick="load_ajax_tra_loi(<?php echo $id ?>,'<?php echo $_GET['mabh'] ?>',<?php echo $row['ma_binh_luan'] ?>,<?php echo $i ?>)"  id="<?php echo "send$i" ?>" type="button" value="Bình Luận" name="send">
+              <div class="col-md-2 offset-7">   
+                <input  class="btn-group" onclick="load_ajax_tra_loi(<?php echo $id ?>,'<?php echo $_GET['matintuc'] ?>',<?php echo $row['ma_binh_luan'] ?>,<?php echo $i ?>)"  id="<?php echo "send$i" ?>" type="button" value="Bình Luận" name="send">
               </div>
          </form> 
        </div>
@@ -109,8 +109,8 @@ if(isset($_SESSION['username']))
   </div>
   <?php }
 //vòng lặp for hiện những bình luận trả lời
-$arraytlbl = array(':ma_chi_tiet_bh' => $_GET['mabh'],':binh_luan_cha' => $row['ma_binh_luan']);
-  $hientralois = $binhluan->binh_luan_con($arraytlbl); 
+$arraytlbl = array(':ma_tin_tuc' => $_GET['matintuc'],':binh_luan_cha' => $row['ma_binh_luan']);
+  $hientralois = $binhluan->binh_luan_tt_con($arraytlbl); 
 ?>
 <div id="<?php echo "mycommenttl_nhau$i" ?>" class="col-md-12" style="margin-left: 20px; display: none; ">
 <?php
@@ -166,7 +166,7 @@ $i++;
 <script language="javascript">
             // Lấy đối tượng 
 //comment bt
-   function load_ajax(id,mabh)
+   function load_ajax(id,matintuc)
    {
        var calculate = function() 
        {
@@ -188,7 +188,7 @@ $i++;
       // }
       
       $.ajax({
-          url : "binhluanthemajax.php?id="+id+"&mabh="+mabh, // gửi ajax đến file result.php
+          url : "binhluan_tintucthemajax.php?id="+id+"&matintuc="+matintuc, // gửi ajax đến file result.php
           type : "post", // chọn phương thức gửi là post
           dataType:"text", // dữ liệu trả về dạng text
           data : { // Danh sách các thuộc tính sẽ gửi đi
@@ -203,7 +203,7 @@ $i++;
       });
     }
     //trả lời
-    function load_ajax_tra_loi(id,mabh,bl_cha,i)
+    function load_ajax_tra_loi(id,matintuc,bl_cha,i)
    {
        var calculate = function() 
        {
@@ -225,7 +225,7 @@ $i++;
       // }
       
       $.ajax({
-          url : "binhluanthemajax.php?id="+id+"&mabh="+mabh+"&bl_cha="+bl_cha, // gửi ajax đến file result.php
+          url : "binhluan_tintucthemajax.php?id="+id+"&matintuc="+matintuc+"&bl_cha="+bl_cha, // gửi ajax đến file result.php
           type : "post", // chọn phương thức gửi là post
           dataType:"text", // dữ liệu trả về dạng text
           data : { // Danh sách các thuộc tính sẽ gửi đi
