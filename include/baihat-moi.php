@@ -1,6 +1,6 @@
 <div class="row">
                 <div class="col-md-12">
-                    <p><a href="#" style="font-size: 25px; text-decoration: none;">Bài hát Hot</a></p>
+                    <p><a href="#" style="font-size: 25px; text-decoration: none;">Bài hát Mới</a></p>
                 </div>
             </div>
 <?php 

@@ -23,7 +23,7 @@ if(!isset($_SESSION['username']))
           <div class="col-md-10 "> 
          <form action="#" method="POST">
              <textarea name="binhluan" id="" cols="68" rows="2" style="margin-top: 5px;"></textarea>
-              <div class="col-md-2 offset-10">   
+              <div class="col-md-2 offset-6">   
                 <input  class="btn-group" onclick="document.getElementById('id01').style.display='block'" type="button" value="Bình Luận" name="send">
               </div>
          </form> 
@@ -42,8 +42,8 @@ else
           <div class="col-md-10 "> 
          <form method="POST">
              <textarea name="binhluan" id="noidung" cols="68" rows="2" ></textarea>
-              <div class="col-md-2 offset-10">   
-                <input  class="btn-group" onclick="load_ajax(<?php echo $id ?>,'<?php echo $_GET['mabh'] ?>')"  id="send" type="button" value="Bình Luận" name="send">
+              <div class="col-md-2 offset-7">   
+                <input  class="btn-group" onclick="load_ajax(<?php echo $id ?>,'<?php echo $_GET['matintuc'] ?>')"  id="send" type="button" value="Bình Luận" name="send">
               </div>
          </form> 
        </div>
@@ -54,13 +54,13 @@ else
  $bd=0;
  $sl=15;
  
-  $arrayName = array(':ma_chi_tiet_bh' => $_GET['mabh']);
-  $rows=  $binh_luan->dem_binh_luan_bh($arrayName);
+  $arrayName = array(':ma_tin_tuc' => $_GET['matintuc']);
+  $rows=  $binh_luan->dem_binh_luan_tt($arrayName);
   $slbl=count($rows);
-  $rows = $binh_luan->binh_luan_bh($arrayName,$bd,$sl); 
+  $rows = $binh_luan->binh_luan_tt($arrayName,$bd,$sl); 
   $i=1; 
-$arrayxemthem = array(':ma_chi_tiet_bh' => $_GET['mabh']);
-  $duoc_tralois = $binh_luan->binh_luan_duoc_tra_loi($arrayName);
+$arrayxemthem = array(':ma_tin_tuc' => $_GET['matintuc']);
+  $duoc_tralois = $binh_luan->binh_luan_tt_duoc_tra_loi($arrayName);
     ?>
 <div id="binhluantv" class="row col-12">
     <?php  
@@ -119,7 +119,7 @@ if(isset($_SESSION['username']))
          <form method="POST">
              <textarea name="binhluan" id="<?php echo "noidung_tl$i" ?>" cols="60" rows="2" ></textarea>
               <div class="col-md-2 offset-10">   
-                <input  class="btn-group" onclick="load_ajax_tra_loi(<?php echo $id ?>,'<?php echo $_GET['mabh'] ?>',<?php echo $row['ma_binh_luan'] ?>,<?php echo $i ?>)"  id="<?php echo "send$i" ?>" type="button" value="Bình Luận" name="send">
+                <input  class="btn-group" onclick="load_ajax_tra_loi(<?php echo $id ?>,'<?php echo $_GET['matintuc'] ?>',<?php echo $row['ma_binh_luan'] ?>,<?php echo $i ?>)"  id="<?php echo "send$i" ?>" type="button" value="Bình Luận" name="send">
               </div>
          </form> 
        </div>
@@ -127,8 +127,8 @@ if(isset($_SESSION['username']))
   </div>
   <?php }
 //vòng lặp for hiện những bình luận trả lời
-$arraytlbl = array(':ma_chi_tiet_bh' => $_GET['mabh'],':binh_luan_cha' => $row['ma_binh_luan']);
-  $hientralois = $binh_luan->binh_luan_con($arraytlbl); 
+$arraytlbl = array(':ma_tin_tuc' => $_GET['matintuc'],':binh_luan_cha' => $row['ma_binh_luan']);
+  $hientralois = $binh_luan->binh_luan_tt_con($arraytlbl); 
 ?>
 <div id="<?php echo "mycommenttl_nhau$i" ?>" class="col-md-12" style="margin-left: 20px; display: none; ">
 <?php
@@ -178,7 +178,7 @@ $arraytlbl = array(':ma_chi_tiet_bh' => $_GET['mabh'],':binh_luan_cha' => $row['
 $i++;
 } ?>
    </div>
-   <div class="row">
+  <div class="row">
         <div class="col-md-10 offset-6">  <?php
         if($slbl>0)
         {
@@ -186,7 +186,7 @@ $i++;
           for($i=1;$i<=ceil(($slbl/15));$i++)
         { 
           ?>
-          <a href="#binhluan" onclick="load_ajax_phan_trang(<?php echo $i ?>,'<?php echo $_GET['mabh'] ?>')"> <?php echo $i."" ;?></a> <?php
+          <a href="#binhluan" onclick="load_ajax_phan_trang(<?php echo $i ?>,'<?php echo $_GET['matintuc'] ?>')"> <?php echo $i."" ;?></a> <?php
         }
         }
         ?> 
@@ -217,7 +217,7 @@ function khoa_15s(noidung,send)
         }
     },1000);
 }
-   function load_ajax(id,mabh)
+   function load_ajax(id,matintuc)
    {
        var calculate = function() 
        {
@@ -238,7 +238,7 @@ function khoa_15s(noidung,send)
       //   return false;
       // }
       $.ajax({
-          url : "binhluanthemajax.php?id="+id+"&mabh="+mabh, // gửi ajax đến file result.php
+          url : "binhluan_tintucthemajax.php?id="+id+"&matintuc="+matintuc, // gửi ajax đến file result.php
           type : "post", // chọn phương thức gửi là post
           dataType:"text", // dữ liệu trả về dạng text
           data : { // Danh sách các thuộc tính sẽ gửi đi
@@ -253,7 +253,7 @@ function khoa_15s(noidung,send)
       });
     }
     //trả lời
-    function load_ajax_tra_loi(id,mabh,bl_cha,i)
+    function load_ajax_tra_loi(id,matintuc,bl_cha,i)
    {  
        var calculate = function() 
       {
@@ -275,7 +275,7 @@ function khoa_15s(noidung,send)
       //   return false;
       // }
       $.ajax({
-          url : "binhluanthemajax.php?id="+id+"&mabh="+mabh+"&bl_cha="+bl_cha, // gửi ajax đến file result.php
+          url : "binhluan_tintucthemajax.php?id="+id+"&matintuc="+matintuc+"&bl_cha="+bl_cha, // gửi ajax đến file result.php
           type : "post", // chọn phương thức gửi là post
           dataType:"text", // dữ liệu trả về dạng text
           data : { // Danh sách các thuộc tính sẽ gửi đi
@@ -290,10 +290,10 @@ function khoa_15s(noidung,send)
       });
     }
 
-   function load_ajax_phan_trang(sotrang,mabh)
+   function load_ajax_phan_trang(sotrang,matintuc)
    {
     $.ajax({
-        url : "binhluanresult.php?sotrang="+sotrang+"&mabh="+mabh, // gửi ajax đến file result.php
+        url : "binhluan_tintucresult.php?sotrang="+sotrang+"&matintuc="+matintuc, // gửi ajax đến file result.php
         type : "post", // chọn phương thức gửi là post
         dataType:"text", // dữ liệu trả về dạng text
         data : { // Danh sách các thuộc tính sẽ gửi đi
@@ -308,7 +308,7 @@ function khoa_15s(noidung,send)
   function ajax_xoa_bl(mabl)
    {
     $.ajax({
-        url : "binhluanthemajax.php?thaotac=xoa"+"&mabl="+mabl, // gửi ajax đến file result.php
+        url : "binhluan_tintucthemajax.php?thaotac=xoa"+"&mabl="+mabl, // gửi ajax đến file result.php
         type : "post", // chọn phương thức gửi là post
         dataType:"text", // dữ liệu trả về dạng text
         data : { // Danh sách các thuộc tính sẽ gửi đi

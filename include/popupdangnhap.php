@@ -5,8 +5,8 @@
 /* Full-width input fields */
 input[type=text], input[type=password] {
     width: 100%;
-    padding: 12px ;
-    margin: 8px 0;
+    padding: 5px ;
+    margin: 12px 0;
     display: inline-block;
     border: 1px solid #ccc;
     box-sizing: border-box;
@@ -14,7 +14,7 @@ input[type=text], input[type=password] {
 .but {
     background-color: #4CAF50;
     color: white;
-    padding: 14px 20px;
+    padding: 8px  10px;
     margin: 8px 0;
     border: none;
     cursor: pointer;
@@ -31,8 +31,10 @@ button:hover {
 /* Extra styles for the cancel button */
 .cancelbtn {
     width: auto;
-    padding: 10px 18px;
+    padding: 5px 5px;
     background-color: #f44336;
+        cursor: pointer;
+
 }
 
 /* Center the image and position the close button */
@@ -60,7 +62,7 @@ span.psw {
     left: 0;
     top: 0;
     width: 90%; /* Full width */
-    height: 95%; /* Full height */
+    height: 100%; /* Full height */
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
     padding-top: 40px;
@@ -71,7 +73,7 @@ span.psw {
     background-color: #fefefe;
     margin: 0% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
     border: 1px solid #888;
-    width: 60%; /* Could be more or less, depending on screen size */
+    width: 40%; /* Could be more or less, depending on screen size */
 }
 
 /* The Close Button (x) */
@@ -156,7 +158,7 @@ span.psw {
 
     <div class="mar" style="background-color:#f1f1f1;margin-right: 62px;">
 
-      <button class=" cancelbtn" type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Hủy Bỏ</button>
+      <button class=" cancelbtn" type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn" style="margin-right: 22px">Hủy Bỏ</button>
       <span class="psw" style="margin-left: 20px;">  Bạn Quên <a href="quenmatkhau.php">Mật Khẩu?</a></span>
     </div>
   </form>

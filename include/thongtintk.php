@@ -1,5 +1,3 @@
-
-
 <?php 
 $obj = new Db();//tu dong load file classes/Db.class.php
   $thanhvien = new Thanhvien();
@@ -15,25 +13,12 @@ if(isset($_POST['submit']))
   $gioitinh=0;
     $link="";
   //
-
   //lấy giá trị
-   
       $hoten=$_POST['hoten'];
-    
-   
       $sdt=$_POST['sodienthoai'];
-    
-   
         $namsinh=$_POST['ngaysinh'];
-
-    
      $email=$_POST['email'];
-
-   
         $gioitinh=$_POST['gioitinh'];
-
-  
-
    if($_FILES["hinh"]['name']!="")
      { 
         $h= $_FILES["hinh"];
@@ -61,12 +46,12 @@ if(isset($_POST['submit']))
 ?>
 <div class="row col-12"   >  
     <div class="col-3 vertical-menu" style="margin-top: -10px;">
-        <a href="#" onclick="load_ajax(1,<?php $username ?>);" >Thông Tin cá nhân</a>        
-        <a href="#" onclick="load_ajax(2,<?php $username ?>);">Thay đổi thông tin </a>
-        <a href="#"onclick="load_ajax(3,<?php $username ?>);">Đổi mật khẩu</a>
-        <a href="#"onclick="load_ajax(4,<?php $username ?>);">Quản lý playlist</a>
+        <a href="#" onclick="load_ajax(1);" >Thông Tin cá nhân</a>        
+        <a href="#" onclick="load_ajax(2);">Thay đổi thông tin </a>
+        <a href="#"onclick="load_ajax(3);">Đổi mật khẩu</a>
+        <a href="#"onclick="load_ajax(4);">Quản lý playlist</a>
      </div>
-      <div class="col-6 offset-1" id='result'>
+      <div class="col-8 offset-1" id='result'>
         <h2 style="color: black"> Thông tin cá nhân</h2>
           <div class="row col-9" style="
           margin-left: -50px;" >
@@ -92,9 +77,9 @@ if(isset($_POST['submit']))
 </div>
  
  <script language="javascript">
-            function load_ajax(stt,username){
+            function load_ajax(stt){
                 $.ajax({
-                    url : "thongtinresult.php?stt="+ stt+"&username="+username ,
+                    url : "thongtinresult.php?stt="+ stt,
                     type : "get",
                     dataType:"text",
                     success : function (result){

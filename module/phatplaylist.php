@@ -1,7 +1,6 @@
 
       <?php //tu dong load file classes/Db.class.php
       $tonghop = new Tonghop();
-      $ablum=new Ablum();
       $chitietbaihat=new Chitietbaihat();
 
 //khoi tao ban dau
@@ -19,15 +18,11 @@
         }
     </style>
     <?php
-       if(isset($_GET['maab']) && !isset($_GET['stt'])) //có mã và chưa có stt
+       if(isset($_GET['mapl']) && !isset($_GET['stt'])) //có mã và chưa có stt
   {
-    $maab=$_GET['maab'];
-     $arr = array(":ma_ablum"=>$maab);
-     $rows=$tonghop->thongtinablum($arr);
-     $i=$rows[0]['luot_nghe'];
-     $i++;
-    $arr = array(":ma_ablum"=>$maab,":luot_nghe"=>$i);
-    $ablum->luot_nghe($arr);
+    $mapl=$_GET['mapl'];
+     $arr = array(":ma_playlist"=>$mapl);
+     $rows=$tonghop->thongtinplaylist($arr);
   }?>
  <div class="col-md-8" >
 <?php
@@ -48,7 +43,7 @@
         margin-top: 0;
         font-family: 'Lobster', helvetica, arial;">
 
-  <p style="font-size: 30px;color: #7E8F7C">  <?php echo 'ABLUM:'. $rows[0]['ten_ablum']; ?></p> 
+  <p style="font-size: 30px;color: #7E8F7C">  <?php echo 'Tên Playlist:'. $rows[0]['ten_playlist']; ?></p> 
   <?php 
   echo $rows[0]["ten_bai_hat"]." - ".$rows[0]["nghe_danh"];
    ?>
@@ -60,8 +55,8 @@
         Sorry, your browser doesn't support html5!
     </audio>
     <ul id="playlist" style="margin-right: 30px;">
-         <?php   $err = array(":ma_ablum"=>$maab);
-      $exs=$tonghop->dsbh($err);    
+         <?php   $err = array(":ma_playlist"=>$mapl);
+      $exs=$tonghop->thongtinplaylist($err);    
       $k=0;
       //hien list abum
      foreach ($exs as $ex ) { ?> 
@@ -70,7 +65,7 @@
           echo 'current-song';
         }
         ?> list-group-item list-group-item-action list-group-item-info">
-         <a href="<?php echo 'admins/'.$ex['duong_dan']; ?>" onclick="load_ajax_chon_ab('<?php echo $maab ?>','<?php echo $k ?>',<?php echo $ex['luot_nghe'];?>);" >  <?php
+         <a href="<?php echo 'admins/'.$ex['duong_dan']; ?>" onclick="load_ajax_chon_pl('<?php echo $mapl ?>','<?php echo $k ?>',<?php echo $ex['luot_nghe'];?>);" >  <?php
           $n=$k+1;
                 echo $n.'.'.$ex['ten_bai_hat'];
                 echo '</a>';
@@ -91,10 +86,9 @@
 </div>
 <div id="result" >
 <div class="row"> 
-  <div class="col-5 offset-1" style="color: #DB0606"><img src="admins/image/trangchu/logo/phanloai.png" style="width: 30px;height: 30px;">Thể Loại:<?php echo "   ".$rows[0]["ten_the_loai"];?></div>
+  <div class="col-5 offset-1" style="color: #DB0606"><img src="admins/image/trangchu/logo/phanloai.png" style="width: 30px;height: 30px;">Thể Loại:<?php echo "   ".$rows[0]["the_loai"];?></div>
+  </div>
 
-    <div class="col-5 offset-1" style="color: #19949F"><img src="admins/image/trangchu/logo/headphones-50.png" style="width: 30px;height: 30px;">Lượt nghe: <?php echo $rows[0]["luot_nghe"];?></div>
-</div>
 <div class="row">
   <div class="col-11 offset-1" style="color: #4A96AD"><img src="admins/image/trangchu/logo/loibaihat.png" style="width: 25px;height: 25px;">Lời Bài Hát:</div>
     <div class="col-11 offset-1">
@@ -109,14 +103,14 @@ echo nl2br($tach[0]); ?>
 
 </div>
 </div>
- 
+
 <script language="javascript">
   
-            function load_ajax_chon_ab(maab,stt,luotnghe){
+            function load_ajax_chon_pl(mapl,stt,luotnghe){
 
              $('#luotnghe'+stt).html(luotnghe+1);
                 $.ajax({
-                    url : "ablumresult.php?maab="+ maab+"&stt="+stt ,
+                    url : "playlistresult.php?mapl="+ mapl+"&stt="+stt ,
                     type : "get",
                     dataType:"text",
                     success : function (result){
